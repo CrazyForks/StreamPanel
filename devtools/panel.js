@@ -463,34 +463,73 @@ function updatePendingFilterCondition(index, field, mode, value) {
 // Render filter conditions
 function renderFilterConditions() {
   const availableFields = getAvailableFields();
-  
-  elements.filterConditions.innerHTML = state.pendingFilters.map((filter, index) => {
-    const fieldOptions = availableFields.map(field => 
-      `<option value="${escapeHtml(field)}" ${filter.field === field ? 'selected' : ''}>${escapeHtml(field)}</option>`
-    ).join('');
 
+  elements.filterConditions.innerHTML = state.pendingFilters.map((filter, index) => {
     return `
       <div class="filter-row" data-index="${index}">
-        <select class="filter-field-select" data-index="${index}">
-          ${fieldOptions}
-        </select>
+        <div class="filter-field-autocomplete" data-index="${index}">
+          <input type="text" class="filter-field-input" data-index="${index}"
+                 placeholder="输入或选择字段..."
+                 value="${escapeHtml(filter.field)}"
+                 autocomplete="off">
+          <div class="filter-field-dropdown" data-index="${index}"></div>
+        </div>
         <select class="filter-mode-select" data-index="${index}">
           <option value="equals" ${filter.mode === 'equals' ? 'selected' : ''}>全等</option>
           <option value="contains" ${filter.mode === 'contains' ? 'selected' : ''}>包含</option>
         </select>
-        <input type="text" class="filter-value-input" data-index="${index}" 
+        <input type="text" class="filter-value-input" data-index="${index}"
                placeholder="输入筛选值..." value="${escapeHtml(filter.value)}">
         <button class="filter-remove-btn" data-index="${index}" title="删除">×</button>
       </div>
     `;
   }).join('');
 
-  // Add event listeners
-  elements.filterConditions.querySelectorAll('.filter-field-select').forEach(select => {
-    select.addEventListener('change', (e) => {
-      const index = parseInt(e.target.dataset.index);
+  // Add event listeners for field autocomplete
+  elements.filterConditions.querySelectorAll('.filter-field-input').forEach(input => {
+    const index = parseInt(input.dataset.index);
+    const dropdown = input.parentElement.querySelector('.filter-field-dropdown');
+
+    // Show dropdown on focus or input
+    const showDropdown = () => {
+      const searchValue = input.value.toLowerCase();
+      const filteredFields = availableFields.filter(field =>
+        field.toLowerCase().includes(searchValue)
+      );
+
+      if (filteredFields.length > 0) {
+        dropdown.innerHTML = filteredFields.map(field =>
+          `<div class="dropdown-item" data-value="${escapeHtml(field)}">${escapeHtml(field)}</div>`
+        ).join('');
+        dropdown.style.display = 'block';
+
+        // Add click listeners to dropdown items
+        dropdown.querySelectorAll('.dropdown-item').forEach(item => {
+          item.addEventListener('click', () => {
+            input.value = item.dataset.value;
+            dropdown.style.display = 'none';
+            const filter = state.pendingFilters[index];
+            updatePendingFilterCondition(index, item.dataset.value, filter.mode, filter.value);
+          });
+        });
+      } else {
+        dropdown.style.display = 'none';
+      }
+    };
+
+    input.addEventListener('focus', showDropdown);
+    input.addEventListener('input', (e) => {
       const filter = state.pendingFilters[index];
       updatePendingFilterCondition(index, e.target.value, filter.mode, filter.value);
+      showDropdown();
+    });
+
+    // Close dropdown when clicking outside
+    input.addEventListener('blur', () => {
+      // Delay to allow click on dropdown items
+      setTimeout(() => {
+        dropdown.style.display = 'none';
+      }, 200);
     });
   });
 

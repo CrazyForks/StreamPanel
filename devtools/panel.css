@@ -539,7 +539,67 @@ html, body {
   border-radius: 4px;
 }
 
-.filter-field-select,
+.filter-field-autocomplete {
+  position: relative;
+  flex: 1;
+  min-width: 120px;
+}
+
+.filter-field-input {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 11px;
+  outline: none;
+  cursor: text;
+}
+
+.filter-field-input:focus {
+  border-color: var(--accent-color);
+}
+
+.filter-field-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: -1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .filter-field-dropdown {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.dropdown-item {
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
 .filter-mode-select {
   padding: 4px 8px;
   border: 1px solid var(--border-color);
@@ -549,14 +609,6 @@ html, body {
   font-size: 11px;
   outline: none;
   cursor: pointer;
-}
-
-.filter-field-select {
-  flex: 1;
-  min-width: 120px;
-}
-
-.filter-mode-select {
   width: 80px;
   flex-shrink: 0;
 }
@@ -571,10 +623,10 @@ html, body {
   color: var(--text-primary);
   font-size: 11px;
   outline: none;
+  cursor: text;
 }
 
 .filter-value-input:focus,
-.filter-field-select:focus,
 .filter-mode-select:focus {
   border-color: var(--accent-color);
 }
