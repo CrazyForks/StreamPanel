@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stream Panel</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button id="btn-clear" class="toolbar-btn" title="清空所有数据">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+      </svg>
+      清空
+    </button>
+    <div class="toolbar-separator"></div>
+    <input type="text" id="filter-input" class="filter-input" placeholder="过滤 URL...">
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Left Panel: Connection List -->
+    <div class="left-panel">
+      <div class="panel-header">连接列表</div>
+      <div id="connection-list" class="connection-list">
+        <div class="empty-state">暂无连接</div>
+      </div>
+    </div>
+
+    <!-- Resizer -->
+    <div class="resizer"></div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <!-- Message List View -->
+      <div id="message-list-view" class="view active">
+        <div class="panel-header">消息列表</div>
+        <div class="message-table-container">
+          <div class="message-table" id="message-table">
+            <!-- Header -->
+            <div class="message-row message-header">
+              <div class="message-cell col-id">ID<div class="col-resizer" data-col="id"></div></div>
+              <div class="message-cell col-type">类型<div class="col-resizer" data-col="type"></div></div>
+              <div class="message-cell col-data">数据<div class="col-resizer" data-col="data"></div></div>
+              <div class="message-cell col-time">时间</div>
+            </div>
+            <!-- Body -->
+            <div class="message-body" id="message-tbody">
+            </div>
+          </div>
+        </div>
+        <div id="message-empty" class="empty-state">请选择一个连接查看消息</div>
+      </div>
+
+      <!-- Detail View -->
+      <div id="detail-view" class="view">
+        <div class="detail-header">
+          <button id="btn-back" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            返回
+          </button>
+          <span id="detail-title" class="detail-title"></span>
+          <button id="btn-copy" class="toolbar-btn" title="复制到剪贴板">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+        </div>
+        <div id="detail-content" class="detail-content">
+          <pre id="detail-json"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>
