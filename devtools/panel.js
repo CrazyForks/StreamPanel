@@ -179,6 +179,7 @@ function selectConnection(connectionId) {
   // Show filter container if filters exist
   if (state.pendingFilters.length > 0) {
     elements.messageFilterContainer.style.display = 'block';
+    elements.btnToggleFilter.classList.add('expanded');
     renderFilterConditions();
   }
 }
@@ -420,13 +421,17 @@ function addFilterCondition() {
   });
 
   elements.messageFilterContainer.style.display = 'block';
+  elements.btnToggleFilter.classList.add('expanded');
   renderFilterConditions();
 }
 
 // Remove filter condition
 function removeFilterCondition(index) {
   state.pendingFilters.splice(index, 1);
+  // Sync to applied filters and re-render
+  state.messageFilters = JSON.parse(JSON.stringify(state.pendingFilters));
   renderFilterConditions();
+  renderMessageList();
 }
 
 // Clear all filters
@@ -434,6 +439,7 @@ function clearAllFilters() {
   state.pendingFilters = [];
   state.messageFilters = [];
   elements.messageFilterContainer.style.display = 'none';
+  elements.btnToggleFilter.classList.remove('expanded');
   renderFilterConditions();
   renderMessageList();
 }
@@ -537,6 +543,13 @@ function updateFilterStats(filteredCount, totalCount) {
 function toggleFilterContainer() {
   const isHidden = elements.messageFilterContainer.style.display === 'none';
   elements.messageFilterContainer.style.display = isHidden ? 'block' : 'none';
+
+  // Toggle expanded class for arrow animation
+  if (isHidden) {
+    elements.btnToggleFilter.classList.add('expanded');
+  } else {
+    elements.btnToggleFilter.classList.remove('expanded');
+  }
 }
 
 // Event handlers for filter buttons
@@ -609,12 +622,14 @@ function copyToClipboard(text) {
 
 function formatTime(timestamp) {
   const date = new Date(timestamp);
-  return date.toLocaleTimeString('en-US', {
+  const timeStr = date.toLocaleTimeString('en-US', {
     hour12: false,
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit'
   });
+  const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
+  return `${timeStr}.${milliseconds}`;
 }
 
 function syntaxHighlight(json) {

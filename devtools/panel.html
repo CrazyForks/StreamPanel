@@ -39,11 +39,14 @@
       <div id="message-list-view" class="view active">
         <div class="panel-header">
           <span style="flex: 1;">消息列表</span>
-          <button id="btn-toggle-filter" style="padding: 4px 8px; height: 20px; display: flex; align-items: center; gap: 4px;" title="显示/隐藏筛选器">
+          <button id="btn-toggle-filter" class="toolbar-btn toggle-btn" title="显示/隐藏筛选器">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
             </svg>
             筛选
+            <svg class="toggle-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </button>
         </div>
         <!-- Message Filter Container -->
@@ -52,7 +55,7 @@
             <span class="filter-title">消息筛选</span>
             <div class="filter-actions">
               <button id="btn-add-filter" class="filter-btn">添加筛选条件</button>
-              <button id="btn-apply-filters" class="filter-btn filter-btn-primary">应用筛选</button>
+              <button id="btn-apply-filters" class="filter-btn">应用筛选</button>
               <button id="btn-clear-filters" class="filter-btn">清除所有</button>
             </div>
           </div>

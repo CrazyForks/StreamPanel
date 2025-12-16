@@ -73,6 +73,19 @@ html, body {
   background-color: var(--bg-hover);
 }
 
+.toggle-btn {
+  position: relative;
+}
+
+.toggle-arrow {
+  transition: transform 0.2s ease;
+  margin-left: 2px;
+}
+
+.toggle-btn.expanded .toggle-arrow {
+  transform: rotate(180deg);
+}
+
 .toolbar-separator {
   width: 1px;
   height: 16px;
@@ -331,8 +344,8 @@ html, body {
 }
 
 .col-time {
-  width: var(--col-time-width, 90px);
-  min-width: var(--col-time-width, 90px);
+  width: var(--col-time-width, 120px);
+  min-width: var(--col-time-width, 120px);
 }
 
 /* Data column fills remaining space */
@@ -510,16 +523,6 @@ html, body {
   border-color: var(--accent-color);
 }
 
-.filter-btn-primary {
-  background-color: var(--accent-color);
-  color: #fff;
-  border-color: var(--accent-color);
-}
-
-.filter-btn-primary:hover {
-  opacity: 0.9;
-}
-
 .filter-conditions {
   display: flex;
   flex-direction: column;
@@ -599,7 +602,6 @@ html, body {
 .filter-stats {
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid var(--border-color);
   font-size: 11px;
   color: var(--text-muted);
 }
