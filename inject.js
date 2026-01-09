@@ -11,7 +11,7 @@
 
   function log(...args) {
     if (DEBUG) {
-      console.log('[Stream Panel]', ...args);
+      // console.log('[Stream Panel]', ...args);
     }
   }
 
