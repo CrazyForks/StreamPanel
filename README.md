@@ -145,7 +145,7 @@ For detailed instructions on how to submit a PR, see [docs/PR_GUIDE.md](docs/PR_
 
 ### License
 
-[Add license information here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -290,5 +290,5 @@ StreamPanel/
 
 ### 许可证
 
-[在此添加许可证信息]
+本项目采用 MIT 许可证 - 详情请参阅 [LICENSE](LICENSE) 文件。
 
