@@ -212,6 +212,26 @@ html, body {
   color: #fff;
 }
 
+.badge-fetch {
+  background-color: #10b981;
+  color: #fff;
+}
+
+.badge-xhr {
+  background-color: #8b5cf6;
+  color: #fff;
+}
+
+.badge-eventsource {
+  background-color: #f59e0b;
+  color: #000;
+}
+
+.badge-unknown {
+  background-color: var(--text-muted);
+  color: #fff;
+}
+
 .status-dot {
   width: 6px;
   height: 6px;

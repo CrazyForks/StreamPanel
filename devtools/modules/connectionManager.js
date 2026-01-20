@@ -47,6 +47,15 @@ export function renderConnectionList() {
     const badgeClass = conn.isIframe ? 'badge-iframe' : 'badge-main';
     const badgeText = conn.isIframe ? 'iframe' : '主页面';
     const statusClass = `status-${conn.status}`;
+    const requestType = getRequestType(conn.source);
+    const typeBadgeMap = {
+      'fetch': 'badge-fetch',
+      'xhr': 'badge-xhr',
+      'eventsource': 'badge-eventsource',
+      'unknown': 'badge-unknown'
+    };
+    const typeBadgeClass = typeBadgeMap[requestType] || 'badge-unknown';
+    const typeBadgeText = requestType.toUpperCase();
 
     return `
       <div class="connection-item ${isSelected ? 'selected' : ''}" data-id="${conn.id}">
@@ -54,6 +63,7 @@ export function renderConnectionList() {
         <div class="connection-meta">
           <span class="status-dot ${statusClass}"></span>
           <span class="connection-badge ${badgeClass}">${badgeText}</span>
+          <span class="connection-badge ${typeBadgeClass}">${typeBadgeText}</span>
           <span class="message-count">${conn.messages.length} 条</span>
         </div>
       </div>

@@ -1,5 +1,8 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import terser from '@rollup/plugin-terser';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 export default {
   input: 'devtools/panel.js',
@@ -7,7 +10,7 @@ export default {
     file: 'devtools/panel.bundle.js',
     format: 'iife',
     name: 'StreamPanel',
-    sourcemap: false,
+    sourcemap: !isProduction,
     globals: {
       chrome: 'chrome'
     }
@@ -17,7 +20,8 @@ export default {
       browser: true,
       preferBuiltins: false
     }),
-    commonjs()
+    commonjs(),
+    ...(isProduction ? [terser()] : [])
   ],
   external: ['chrome']  // chrome API 不打包
 };

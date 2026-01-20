@@ -71,11 +71,12 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         url: payload.url,
         frameUrl: payload.frameUrl,
         isIframe: payload.isIframe,
+        source: payload.source || 'unknown',
         status: 'connecting',
         createdAt: payload.timestamp,
         messages: []
       };
-      log('Created connection:', payload.connectionId);
+      log('Created connection:', payload.connectionId, 'source:', payload.source);
       break;
 
     case 'stream-open':
