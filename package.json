@@ -1,0 +1,26 @@
+{
+  "name": "stream-panel",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Chrome DevTools extension for monitoring streaming requests",
+  "main": "devtools/panel.js",
+  "scripts": {
+    "build": "rollup -c",
+    "build:prod": "rollup -c --environment NODE_ENV:production",
+    "watch": "rollup -c -w"
+  },
+  "keywords": [
+    "chrome",
+    "devtools",
+    "sse",
+    "stream",
+    "extension"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "rollup": "^4.9.6"
+  }
+}

@@ -121,10 +121,73 @@ StreamPanel/
 │   ├── devtools.html      # DevTools page
 │   ├── devtools.js        # DevTools initialization
 │   ├── panel.html         # Panel UI
-│   ├── panel.js           # Panel logic
-│   └── panel.css          # Panel styles
-└── icons/                 # Extension icons
+│   ├── panel.bundle.js    # Panel logic (bundled version)
+│   ├── panel.js           # Panel entry (ES Modules)
+│   └── modules/          # Modular source code
+│       ├── state.js       # State management
+│       ├── utils.js       # Utility functions
+│       ├── viewManager.js # View management
+│       ├── connectionManager.js   # Connection management
+│       ├── messageRenderer.js     # Message rendering
+│       ├── filterManager.js       # Filter management
+│       ├── searchManager.js       # Search functionality
+│       ├── exportManager.js       # Export functionality
+│       ├── presetManager.js       # Preset management
+│       ├── statisticsManager.js   # Statistics management
+│       ├── eventHandlers.js       # Event handling
+│       └── columnResizer.js      # Column resizing
+├── rollup.config.js      # Rollup bundler configuration
+├── package.json          # Project dependencies and scripts
+└── icons/                # Extension icons
 ```
+
+#### Building the Extension
+
+The project uses **Rollup** to bundle modular ES Modules into a single file compatible with Chrome DevTools.
+
+**Prerequisites:**
+
+- Node.js (v14 or higher)
+- npm or pnpm
+
+**Installation:**
+
+```bash
+# Install dependencies
+npm install
+# or
+pnpm install
+```
+
+**Build Commands:**
+
+```bash
+# Development build (with sourcemaps)
+npm run build
+
+# Production build (minified)
+npm run build:prod
+
+# Watch mode (auto-rebuild on file changes)
+npm run watch
+```
+
+**Development Workflow:**
+
+1. Edit files in `devtools/modules/`
+2. Run `npm run build` or `npm run watch`
+3. Reload the extension in Chrome
+4. Test changes in DevTools
+
+**Output Files:**
+
+- `devtools/panel.bundle.js` - Bundled version (used in production)
+- `devtools/panel.js` - ES Modules entry point (source)
+
+For detailed documentation, see:
+- [START.md](START.md) - Quick start guide
+- [docs/BUNDLED_VERSION_GUIDE.md](docs/BUNDLED_VERSION_GUIDE.md) - Complete guide
+- [docs/modularization-refactor.md](docs/modularization-refactor.md) - Technical documentation
 
 ### Roadmap
 
@@ -266,10 +329,73 @@ StreamPanel/
 │   ├── devtools.html      # DevTools 页面
 │   ├── devtools.js        # DevTools 初始化
 │   ├── panel.html         # 面板 UI
-│   ├── panel.js           # 面板逻辑
-│   └── panel.css          # 面板样式
-└── icons/                 # 扩展图标
+│   ├── panel.bundle.js    # 面板逻辑（打包版本）
+│   ├── panel.js           # 面板入口（ES Modules）
+│   └── modules/          # 模块化源码
+│       ├── state.js       # 状态管理
+│       ├── utils.js       # 工具函数
+│       ├── viewManager.js # 视图管理
+│       ├── connectionManager.js   # 连接管理
+│       ├── messageRenderer.js     # 消息渲染
+│       ├── filterManager.js       # 筛选管理
+│       ├── searchManager.js       # 搜索功能
+│       ├── exportManager.js       # 导出功能
+│       ├── presetManager.js       # 预设管理
+│       ├── statisticsManager.js   # 统计管理
+│       ├── eventHandlers.js       # 事件处理
+│       └── columnResizer.js      # 列宽调整
+├── rollup.config.js      # Rollup 打包配置
+├── package.json          # 项目依赖和脚本
+└── icons/                # 扩展图标
 ```
+
+#### 构建扩展
+
+项目使用 **Rollup** 将模块化的 ES Modules 打包为 Chrome DevTools 兼容的单文件。
+
+**前置条件：**
+
+- Node.js（v14 或更高版本）
+- npm 或 pnpm
+
+**安装依赖：**
+
+```bash
+# 安装依赖
+npm install
+# 或
+pnpm install
+```
+
+**构建命令：**
+
+```bash
+# 开发模式构建（包含 sourcemaps）
+npm run build
+
+# 生产模式构建（压缩）
+npm run build:prod
+
+# 监听模式（文件更改时自动重新构建）
+npm run watch
+```
+
+**开发流程：**
+
+1. 编辑 `devtools/modules/` 中的文件
+2. 运行 `npm run build` 或 `npm run watch`
+3. 在 Chrome 中重新加载扩展
+4. 在 DevTools 中测试更改
+
+**输出文件：**
+
+- `devtools/panel.bundle.js` - 打包版本（生产使用）
+- `devtools/panel.js` - ES Modules 入口（源码）
+
+详细文档请查看：
+- [START.md](START.md) - 快速开始指南
+- [docs/BUNDLED_VERSION_GUIDE.md](docs/BUNDLED_VERSION_GUIDE.md) - 完整指南
+- [docs/modularization-refactor.md](docs/modularization-refactor.md) - 技术文档
 
 ### 后续计划
 
