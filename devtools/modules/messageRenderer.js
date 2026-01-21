@@ -10,8 +10,14 @@ let callbacks = {
   searchMessages: null
 };
 
+let lastRenderedConnectionId = null;
+let lastRenderedMessageCount = 0;
+let renderTimeout = null;
+
 export function initMessageRenderer(el) {
   elements = el;
+
+  setupMessageListEventDelegation();
 }
 
 export function setCallbacks(cb) {
@@ -25,6 +31,8 @@ export function renderMessageList() {
     elements.messageTbody.innerHTML = '';
     elements.messageEmpty.style.display = 'flex';
     elements.messageTbody.parentElement.style.display = 'none';
+    lastRenderedConnectionId = null;
+    lastRenderedMessageCount = 0;
     return;
   }
 
@@ -45,30 +53,110 @@ export function renderMessageList() {
   const normalMessages = filteredMessages.filter(msg => !isMessagePinned(state.selectedConnectionId, msg.id));
   const displayMessages = [...pinnedMessages, ...normalMessages];
 
-  elements.messageTbody.innerHTML = displayMessages.map(msg => {
-    const time = formatTime(msg.timestamp);
-    const hasSearch = state.searchQuery.length > 0;
-    const isPinned = isMessagePinned(state.selectedConnectionId, msg.id);
+  const currentConnectionId = state.selectedConnectionId;
+  const currentMessageCount = displayMessages.length;
 
-    return `
-      <div class="message-row ${hasSearch ? 'search-highlight' : ''} ${isPinned ? 'pinned' : ''}" data-id="${msg.id}">
-        <div class="message-cell col-id">${isPinned ? '📌' : ''}${msg.id}</div>
-        <div class="message-cell col-type">${hasSearch ? highlightSearchMatches(msg.eventType, state.searchQuery) : escapeHtml(msg.eventType)}</div>
-        <div class="message-cell col-data">${hasSearch ? highlightSearchMatches(msg.data, state.searchQuery) : escapeHtml(msg.data)}</div>
-        <div class="message-cell col-time">${time}</div>
-      </div>
-    `;
-  }).join('');
+  const isConnectionChanged = currentConnectionId !== lastRenderedConnectionId;
+  const hasFilters = state.messageFilters.length > 0 || state.searchQuery.length > 0;
+  const shouldFullRender = isConnectionChanged || hasFilters;
 
-  elements.messageTbody.querySelectorAll('.message-row').forEach(row => {
-    row.addEventListener('click', () => {
-      showMessageDetail(parseInt(row.dataset.id));
-    });
+  if (renderTimeout) {
+    cancelAnimationFrame(renderTimeout);
+  }
+
+  renderTimeout = requestAnimationFrame(() => {
+    if (shouldFullRender) {
+      renderAllMessages(displayMessages);
+    } else {
+      const isAutoScrolling = state.autoScrollToBottom && 
+        elements.messageTbody.scrollTop + elements.messageTbody.clientHeight >= elements.messageTbody.scrollHeight - 50;
+
+      renderIncrementalMessages(displayMessages, lastRenderedMessageCount, isAutoScrolling);
+    }
+
+    lastRenderedConnectionId = currentConnectionId;
+    lastRenderedMessageCount = currentMessageCount;
   });
+}
+
+function renderAllMessages(messages) {
+  const fragment = document.createDocumentFragment();
+
+  messages.forEach(msg => {
+    const row = createMessageRow(msg);
+    fragment.appendChild(row);
+  });
+
+  elements.messageTbody.innerHTML = '';
+  elements.messageTbody.appendChild(fragment);
 
   if (state.autoScrollToBottom) {
     elements.messageTbody.scrollTop = elements.messageTbody.scrollHeight;
   }
+}
+
+function renderIncrementalMessages(messages, previousCount, isAutoScrolling) {
+  const newMessages = messages.slice(previousCount);
+
+  if (newMessages.length === 0) {
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  newMessages.forEach(msg => {
+    const row = createMessageRow(msg);
+    fragment.appendChild(row);
+  });
+
+  elements.messageTbody.appendChild(fragment);
+
+  if (state.autoScrollToBottom && isAutoScrolling) {
+    elements.messageTbody.scrollTop = elements.messageTbody.scrollHeight;
+  }
+}
+
+function createMessageRow(msg) {
+  const row = document.createElement('div');
+  const time = formatTime(msg.timestamp);
+  const hasSearch = state.searchQuery.length > 0;
+  const isPinned = isMessagePinned(state.selectedConnectionId, msg.id);
+
+  row.className = `message-row ${hasSearch ? 'search-highlight' : ''} ${isPinned ? 'pinned' : ''}`;
+  row.dataset.id = msg.id;
+
+  const idCell = document.createElement('div');
+  idCell.className = 'message-cell col-id';
+  idCell.textContent = `${isPinned ? '📌' : ''}${msg.id}`;
+
+  const typeCell = document.createElement('div');
+  typeCell.className = 'message-cell col-type';
+  typeCell.innerHTML = hasSearch ? highlightSearchMatches(msg.eventType, state.searchQuery) : escapeHtml(msg.eventType);
+
+  const dataCell = document.createElement('div');
+  dataCell.className = 'message-cell col-data';
+  dataCell.innerHTML = hasSearch ? highlightSearchMatches(msg.data, state.searchQuery) : escapeHtml(msg.data);
+
+  const timeCell = document.createElement('div');
+  timeCell.className = 'message-cell col-time';
+  timeCell.textContent = time;
+
+  row.appendChild(idCell);
+  row.appendChild(typeCell);
+  row.appendChild(dataCell);
+  row.appendChild(timeCell);
+
+  return row;
+}
+
+function setupMessageListEventDelegation() {
+  elements.messageTbody.addEventListener('click', (e) => {
+    const row = e.target.closest('.message-row');
+    if (row) {
+      const messageId = parseInt(row.dataset.id);
+      showMessageDetail(messageId);
+    }
+  });
 }
 
 export function showMessageDetail(messageId) {

@@ -39,6 +39,11 @@ export async function showSaveConnectionModal() {
     return;
   }
 
+  if (connection.status === 'archived' || connection.savedId) {
+    alert('此连接已从数据库加载，无需再次保存');
+    return;
+  }
+
   const existing = await isConnectionSaved(connection.id);
   const defaultName = formatDateTime(connection.createdAt);
 
@@ -54,7 +59,7 @@ export async function showSaveConnectionModal() {
       <div class="form-group">
         <label class="form-label">连接信息</label>
         <div class="connection-info-box">
-          <div class="info-row"><strong>URL:</strong> <span class="info-url">${escapeHtml(connection.url)}</span></div>
+          <div class="info-row"><strong>URL:</strong> <span class="info-url" title="${escapeHtml(connection.url)}">${escapeHtml(connection.url)}</span></div>
           <div><strong>消息数量:</strong> ${connection.messages.length} 条</div>
           <div><strong>状态:</strong> ${connection.status}</div>
           <div><strong>创建时间:</strong> ${defaultName}</div>
@@ -74,7 +79,7 @@ export async function showSaveConnectionModal() {
   const saveBtn = document.getElementById('connection-save-btn');
   const cancelBtn = document.getElementById('connection-cancel-btn');
 
-  cancelBtn.addEventListener('click', closeSavedConnectionsModal);
+  cancelBtn.addEventListener('click', closeSaveConnectionModal);
 
   saveBtn.addEventListener('click', async () => {
     if (!nameInput.value.trim()) {
@@ -94,7 +99,7 @@ export async function showSaveConnectionModal() {
 
     try {
       const savedData = await saveConnection(connection, options);
-      closeSavedConnectionsModal();
+      closeSaveConnectionModal();
       alert('连接保存成功！');
 
       if (callbacks.renderConnectionList) {
@@ -136,7 +141,7 @@ export function renderSavedConnectionsList(connections) {
         <div class="saved-connection-info">
           <div class="saved-connection-name">
             ${escapeHtml(conn.name)}
-            ${conn.isIframe ? '<span class="badge-iframe">iframe</span>' : ''}
+            ${conn.isIframe ? '<span class="connection-badge badge-iframe">iframe</span>' : ''}
           </div>
           <div class="saved-connection-url" title="${escapeHtml(conn.url)}">
             ${escapeHtml(conn.url)}
@@ -271,6 +276,10 @@ export async function deleteAllSavedConnections() {
 
 export function closeSavedConnectionsModal() {
   elements.savedConnectionsModal.style.display = 'none';
+}
+
+function closeSaveConnectionModal() {
+  elements.presetModal.style.display = 'none';
 }
 
 function formatDateTime(timestamp) {
