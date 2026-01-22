@@ -1,4 +1,7 @@
-# Stream Panel
+# 🌊 Stream Panel - Chrome DevTools Extension for SSE & Fetch Stream Monitoring
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/bywwcnll/SreamPanel?style=social)](https://github.com/bywwcnll/SreamPanel/stargazers)
 
 [English](#english) | [中文](#中文)
 
@@ -9,6 +12,47 @@
 ### Overview
 
 **Stream Panel** is a Chrome DevTools extension that allows developers to monitor and inspect streaming requests in real-time. It supports both **Server-Sent Events (SSE)** and **Fetch-based Stream** connections, making it an essential tool for debugging streaming APIs and viewing real-time data pushes.
+
+### Why Stream Panel?
+
+- 🔥 **Most Feature-Rich SSE Monitor**: Unlike basic SSE viewers, Stream Panel offers comprehensive filtering, search, and export capabilities
+- ⚡ **Multiple Stream Types**: Supports EventSource, Fetch Stream, and XMLHttpRequest - all in one tool
+- 🎯 **Real-Time Debugging**: Monitor live data streams without leaving Chrome DevTools
+- 💾 **Data Persistence**: Save and restore connection data for later analysis
+- 📊 **Advanced Analytics**: Track connection statistics and message counts
+- 🔍 **Powerful Search**: Full-text search across all messages with highlighting
+- 📤 **Flexible Export**: Export data in JSON or CSV format (Excel-compatible)
+
+**Perfect for:**
+- ✅ Debugging AI chat application streaming responses
+- ✅ Testing server-sent events and push notifications
+- ✅ Monitoring real-time APIs and WebSocket alternatives
+- ✅ Analyzing streaming data patterns
+- ✅ Quality assurance testing for streaming features
+
+### Screenshots
+
+Monitor streaming responses from popular AI chat applications:
+
+#### ChatGPT
+![ChatGPT](images/chatgpt@1600×1368.jpg)
+
+#### DeepSeek
+![DeepSeek](images/deepseek@1600×1368.jpg)
+
+#### Doubao
+![Doubao](images/doubao@1600×1368.jpg)
+
+#### Qwen
+![Qwen](images/qwen@1600×1368.jpg)
+
+#### Wenxin
+![Wenxin](images/wenxin@1600×1368.jpg)
+
+#### Zhipu
+![Zhipu](images/zhipu@1600×1368.jpg)
+
+*Stream Panel works seamlessly with all major AI chat platforms*
 
 ### Features
 
@@ -44,7 +88,24 @@
  - 📜 **Auto Scroll**: Auto-scroll to latest messages (toggleable)
  - 📐 **Resizable Columns**: Adjust table column widths for better readability
  - 🌓 **Dark Mode**: Automatic dark mode support based on system preferences
- - 🚀 **Performance Optimization**: Efficient rendering with virtualization and event delegation for large message lists
+  - 🚀 **Performance Optimization**: Efficient rendering with virtualization and event delegation for large message lists
+
+### Comparison with Other Tools
+
+| Feature | Stream Panel | SSE Viewer | Network Tab |
+|---------|--------------|------------|-------------|
+| EventSource Support | ✅ | ✅ | ⚠️ Limited |
+| Fetch Stream Support | ✅ | ❌ | ⚠️ Limited |
+| XMLHttpRequest Support | ✅ | ❌ | ✅ |
+| Message Filtering | ✅ Advanced | ❌ | ❌ |
+| Full-text Search | ✅ | ❌ | ❌ |
+| Data Export | ✅ JSON/CSV | ❌ | ⚠️ Manual |
+| Connection Persistence | ✅ IndexedDB | ❌ | ❌ |
+| Statistics & Analytics | ✅ Comprehensive | ❌ | Basic |
+| Dark Mode | ✅ | ❌ | ✅ |
+| Real-time Monitoring | ✅ | ✅ | ✅ |
+| Message Pinning | ✅ | ❌ | ❌ |
+| Filter Presets | ✅ | ❌ | ❌ |
 
 ### Installation
 
@@ -217,6 +278,23 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 For detailed instructions on how to submit a PR, see [docs/PR_GUIDE.md](docs/PR_GUIDE.md).
 
+### Quick Ways to Contribute
+
+- ⭐ Star this repository on GitHub
+- 🐛 Report bugs and suggest features
+- 📝 Improve documentation
+- 💻 Submit pull requests
+- 📣 Share with your developer community
+
+### Spread the Word
+
+Help Stream Panel grow by:
+- 🌟 Giving it a ⭐ on GitHub
+- 💬 Sharing with your developer community
+- 📝 Writing about it in blogs or social media
+- 📸 Sharing screenshots of your use cases
+- 💡 Suggesting improvements
+
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -228,6 +306,47 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### 简介
 
 **Stream Panel** 是一个 Chrome DevTools 扩展，允许开发者实时监控和检查流式请求。它支持 **服务器发送事件 (SSE)** 和 **基于 Fetch 的流式连接**，是调试流式 API 和查看实时数据推送的必备工具。
+
+### 为什么选择 Stream Panel？
+
+- 🔥 **功能最全面的 SSE 监控工具**：相比基础的 SSE 查看器，Stream Panel 提供了全面的筛选、搜索和导出功能
+- ⚡ **支持多种流类型**：EventSource、Fetch Stream 和 XMLHttpRequest - 一个工具搞定所有
+- 🎯 **实时调试**：无需离开 Chrome DevTools 即可监控实时数据流
+- 💾 **数据持久化**：保存和恢复连接数据以便后续分析
+- 📊 **高级分析**：跟踪连接统计和消息计数
+- 🔍 **强大的搜索**：对所有消息进行全文搜索并高亮显示
+- 📤 **灵活导出**：导出 JSON 或 CSV 格式（Excel 兼容）
+
+**完美适用于：**
+- ✅ 调试 AI 聊天类应用的流式响应
+- ✅ 测试服务器发送事件和推送通知
+- ✅ 监控实时 API 和 WebSocket 替代方案
+- ✅ 分析流式数据模式
+- ✅ 流式功能的质量保证测试
+
+### 截图展示
+
+监控来自主流 AI 聊天应用的流式响应：
+
+#### ChatGPT
+![ChatGPT](images/chatgpt@1600×1368.jpg)
+
+#### DeepSeek
+![DeepSeek](images/deepseek@1600×1368.jpg)
+
+#### 豆包
+![Doubao](images/doubao@1600×1368.jpg)
+
+#### 通义千问
+![Qwen](images/qwen@1600×1368.jpg)
+
+#### 文心一言
+![Wenxin](images/wenxin@1600×1368.jpg)
+
+#### 智谱 AI
+![Zhipu](images/zhipu@1600×1368.jpg)
+
+*Stream Panel 与所有主流 AI 聊天平台无缝协作*
 
 ### 功能特性
 
@@ -263,7 +382,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
  - 📜 **自动滚动**：自动滚动到最新消息（可切换）
  - 📐 **可调整列宽**：调整表格列宽以提高可读性
  - 🌓 **深色模式**：根据系统偏好自动支持深色模式
- - 🚀 **性能优化**：高效渲染，使用虚拟化和事件委托处理大量消息列表
+  - 🚀 **性能优化**：高效渲染，使用虚拟化和事件委托处理大量消息列表
+
+### 与其他工具对比
+
+| 功能特性 | Stream Panel | SSE Viewer | 网络标签页 |
+|---------|--------------|------------|-------------|
+| EventSource 支持 | ✅ | ✅ | ⚠️ 有限 |
+| Fetch Stream 支持 | ✅ | ❌ | ⚠️ 有限 |
+| XMLHttpRequest 支持 | ✅ | ❌ | ✅ |
+| 消息筛选 | ✅ 高级 | ❌ | ❌ |
+| 全文搜索 | ✅ | ❌ | ❌ |
+| 数据导出 | ✅ JSON/CSV | ❌ | ⚠️ 手动 |
+| 连接持久化 | ✅ IndexedDB | ❌ | ❌ |
+| 统计分析 | ✅ 全面 | ❌ | 基础 |
+| 深色模式 | ✅ | ❌ | ✅ |
+| 实时监控 | ✅ | ✅ | ✅ |
+| 消息置顶 | ✅ | ❌ | ❌ |
+| 筛选预设 | ✅ | ❌ | ❌ |
 
 ### 安装方法
 
@@ -435,6 +571,23 @@ npm run watch
 欢迎贡献！请随时提交 Pull Request。
 
 有关如何提交 PR 的详细说明，请参阅 [docs/PR_GUIDE.md](docs/PR_GUIDE.md)。
+
+### 快速贡献方式
+
+- ⭐ 在 GitHub 上为这个仓库点星
+- 🐛 报告错误和建议新功能
+- 📝 改进文档
+- 💻 提交 Pull Request
+- 📣 与您的开发者社区分享
+
+### 传播推广
+
+帮助 Stream Panel 成长：
+- 🌟 在 GitHub 上给它一个 ⭐
+- 💬 与您的开发者社区分享
+- 📝 在博客或社交媒体上撰写相关文章
+- 📸 分享您的使用案例截图
+- 💡 提出改进建议
 
 ### 许可证
 
